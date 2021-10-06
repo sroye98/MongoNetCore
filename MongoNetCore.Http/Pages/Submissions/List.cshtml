@@ -1,0 +1,25 @@
+﻿@page
+@model ListModel
+@{
+    ViewData["Title"] = "List of Submissions";
+}
+
+<h1>List of Ideas</h1>
+
+@foreach (var sub in Model.SubmissionItems)
+{
+    <div class="idea">
+        <span>Created By: @sub.UserName on @sub.Created.ToLocalTime()</span>
+        <span>Last Updated: @sub.LastUpdated.ToLocalTime()</span>
+        <div>
+            @sub.Content
+        </div>
+        @if (User.Identity.IsAuthenticated && Model.CurrentApplicationUser.Id == @sub.UserId)
+        {
+            <a asp-page="Edit" asp-route-id="@sub.Id">edit</a>
+            <a asp-page="Delete" asp-route-id="@sub.Id">delete</a>
+        }
+    </div>
+}
+<hr />
+<a class="create" asp-page="Create">Add New Idea</a>

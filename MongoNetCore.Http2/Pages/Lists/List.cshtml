@@ -1,0 +1,25 @@
+﻿@page
+@model ListModel
+@{
+    ViewData["Title"] = "To Do Lists";
+}
+
+<h1>To Do Lists</h1>
+
+@foreach (var list in Model.ToDoLists)
+{
+    <div class="idea">
+        <span>Created By: @list.UserName on @list.Created.ToLocalTime()</span>
+        <span>Last Updated: @list.LastUpdated.ToLocalTime()</span>
+        <div>
+            <a asp-page="Items" asp-route-id=@list.Id>@list.ListName</a>
+        </div>
+        @if (User.Identity.IsAuthenticated && Model.CurrentApplicationUser.Id == @list.UserId)
+        {
+            <a asp-page="EditList" asp-route-id="@list.Id">edit</a>
+            <a asp-page="DeleteList" asp-route-id="@list.Id">delete</a>
+        }
+    </div>
+}
+<hr />
+<a asp-page="CreateList">Add New List</a>

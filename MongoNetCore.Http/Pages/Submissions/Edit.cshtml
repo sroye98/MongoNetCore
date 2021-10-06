@@ -1,0 +1,23 @@
+﻿@page
+@model EditModel
+@{
+    ViewData["Title"] = "Edit your Idea";
+}
+
+<h1>Edit your Idea</h1>
+
+<form method="post" asp-route-id="@Model.Input.Id">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Input.Id" />
+    <div class="form-group">
+        <label asp-for="Input.Content"></label>
+        <textarea asp-for="Input.Content" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Input.Content"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
