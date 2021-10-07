@@ -31,6 +31,7 @@ namespace MongoNetCore.Http2.Pages.Lists
 
         public async Task<IActionResult> OnGetAsync(string listId, string itemId)
         {
+            var _list = await _toDoListService.FindByItemIdAsync(itemId);
             var list = await _toDoListService.FindAsync(listId);
 
             if (list == null)

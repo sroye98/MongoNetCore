@@ -32,8 +32,8 @@ namespace MongoNetCore.Application.Services
         public async Task<ToDoList> FindAsync(string id) =>
             await _toDoLists.Find(list => list.Id == id).SingleOrDefaultAsync();
 
-        public async Task<ToDoList> FindByItemIdAsync(string id) => // Not Working
-            await _toDoLists.Find(list => list.Items.FirstOrDefault(m => m.Id == id) != null).SingleOrDefaultAsync();
+        public async Task<ToDoList> FindByItemIdAsync(string id) =>
+            await _toDoLists.Find(list => list.Items.Any(m => m.Id == id)).SingleOrDefaultAsync();
 
         public async Task<IList<ToDoList>> ReadAsync(Guid userId) =>
             await _toDoLists.Find(list => list.UserId == userId).ToListAsync();

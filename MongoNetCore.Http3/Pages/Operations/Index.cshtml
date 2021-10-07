@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Operations";
+}
+
+<h1>Cases</h1>
+
+@foreach (var _case in Model.Cases)
+{
+    <div class="idea">
+        <span>Created By: @_case.UserName on @_case.Created.ToLocalTime()</span>
+        <span>Last Updated: @_case.LastUpdated.ToLocalTime()</span>
+        <div>
+            @_case.SurgeryName
+        </div>
+        <div>
+            @_case.Clinic.Id
+            <a href="/Operations?id=@_case.Clinic.Id">@_case.Clinic.Name</a>
+        </div>
+    </div>
+}
+<hr />
+<form method="post">
+    <button class="btn btn-primary">Create Case</button>
+</form>
+<form method="post" asp-page-handler="UpdateClinic">
+    <button class="btn btn-secondary">Update Clinic</button>
+</form>
+<form method="post" asp-page-handler="ChangeClinic">
+    <button class="btn btn-warning">Change Clinic</button>
+</form>
