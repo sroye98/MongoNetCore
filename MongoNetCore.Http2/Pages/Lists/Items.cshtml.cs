@@ -31,14 +31,15 @@ namespace MongoNetCore.Http2.Pages.Lists
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            CurrentApplicationUser = await _userManager.FindByEmailAsync(User.Identity.Name) ??
-                await _userManager.FindByNameAsync(User.Identity.Name);
             ToDoList = await _toDoListService.FindAsync(id);
 
             if (ToDoList == null)
             {
                 return Redirect("/Error");
             }
+
+            CurrentApplicationUser = await _userManager.FindByEmailAsync(User.Identity.Name) ??
+                await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (ToDoList.UserId != CurrentApplicationUser.Id)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoNetCore.Application.Interfaces;
@@ -31,10 +32,13 @@ namespace MongoNetCore.Application.Services
         public async Task<ToDoList> FindAsync(string id) =>
             await _toDoLists.Find(list => list.Id == id).SingleOrDefaultAsync();
 
+        public async Task<ToDoList> FindByItemIdAsync(string id) => // Not Working
+            await _toDoLists.Find(list => list.Items.FirstOrDefault(m => m.Id == id) != null).SingleOrDefaultAsync();
+
         public async Task<IList<ToDoList>> ReadAsync(Guid userId) =>
             await _toDoLists.Find(list => list.UserId == userId).ToListAsync();
 
         public async Task UpdateAsync(ToDoList list) =>
-            await _toDoLists.ReplaceOneAsync(list => list.Id == list.Id, list);
+            await _toDoLists.ReplaceOneAsync(_list => _list.Id == list.Id, list);
     }
 }

@@ -22,10 +22,10 @@
         </div>
         @if (User.Identity.IsAuthenticated && Model.CurrentApplicationUser.Id == @item.UserId)
         {
-            <a asp-page="EditItem" asp-route-id="@item.Id">edit</a>
-            <a asp-page="DeleteItem" asp-route-id="@item.Id">delete</a>
+            <a asp-page="EditItem" asp-route-listId="@Model.ToDoList.Id" asp-route-itemId="@item.Id">edit</a>
+            <a asp-page="DeleteItem" asp-route-listId="@Model.ToDoList.Id" asp-route-itemId="@item.Id">delete</a>
         }
     </div>
 }
 <hr />
-<a asp-page="CreateItem">Add New Item</a>
+<a asp-page="CreateItem" asp-route-id="@Model.ToDoList.Id">Add New Item</a>

@@ -6,20 +6,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MongoDB.Bson;
 using MongoNetCore.Application.Interfaces;
 using MongoNetCore.Domain;
-using MongoNetCore.Http2.Models.DTOs;
 
 namespace MongoNetCore.Http2.Pages.Lists
 {
     [Authorize]
-    public class CreateItemModel : PageModel
+    public class DeleteItemModel : PageModel
     {
         private readonly IToDoListService _toDoListService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateItemModel(
+        public DeleteItemModel(
             IToDoListService toDoListService,
             UserManager<ApplicationUser> userManager)
         {
@@ -28,11 +26,14 @@ namespace MongoNetCore.Http2.Pages.Lists
         }
 
         [BindProperty]
-        public CreateItem Input { get; set; }
+        public string ItemId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        [BindProperty]
+        public string ListId { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string listId, string itemId)
         {
-            var list = await _toDoListService.FindAsync(id);
+            var list = await _toDoListService.FindAsync(listId);
 
             if (list == null)
             {
@@ -47,15 +48,15 @@ namespace MongoNetCore.Http2.Pages.Lists
                 return Redirect("/Error");
             }
 
-            Input = new CreateItem
-            {
-                ListId = id
-            };
+            var item = list.Items.FirstOrDefault(m => m.Id == itemId);
+
+            ItemId = item.Id;
+            ListId = list.Id;
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(string listId, string itemId)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace MongoNetCore.Http2.Pages.Lists
                 return Page();
             }
 
-            var list = await _toDoListService.FindAsync(id);
+            var list = await _toDoListService.FindAsync(ListId);
 
             if (list == null)
             {
@@ -80,19 +81,9 @@ namespace MongoNetCore.Http2.Pages.Lists
                 return Redirect("/Error");
             }
 
-            var item = new ToDoItem
-            {
-                Completed = false,
-                Created = DateTime.Now,
-                Description = Input.Description,
-                Id = ObjectId.GenerateNewId().ToString(),
-                LastUpdated = DateTime.Now,
-                Title = Input.Title,
-                UserId = currentApplicationUser.Id,
-                UserName = currentApplicationUser.UserName
-            };
+            var item = list.Items.FirstOrDefault(m => m.Id == ItemId);
 
-            list.Items.Add(item);
+            list.Items.Remove(item);
 
             await _toDoListService.UpdateAsync(list);
 

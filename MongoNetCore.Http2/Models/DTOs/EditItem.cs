@@ -9,6 +9,12 @@ namespace MongoNetCore.Http2.Models.DTOs
         {
         }
 
+        [Required]
+        public string ListId { get; set; }
+
+        [Required]
+        public string ItemId { get; set; }
+
         [Required, DataType(DataType.Text), Display(Name = "Title")]
         public string Title { get; set; }
 

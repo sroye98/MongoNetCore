@@ -39,7 +39,6 @@ namespace MongoNetCore.Http2
                     Configuration["DatabaseSettings:ConnectionString"],
                     Configuration["DatabaseSettings:DatabaseName"]);
 
-            services.AddTransient<IToDoItemService, ToDoItemService>();
             services.AddTransient<IToDoListService, ToDoListService>();
             services.AddTransient<IUserService, UserService>();
 
@@ -64,7 +63,7 @@ namespace MongoNetCore.Http2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,0 +1,20 @@
+﻿@page
+@model DeleteItemModel
+@{
+    ViewData["Title"] = "Delete your To Do Item";
+}
+
+<h1>Edit your To Do Item</h1>
+
+<form method="post" asp-route-listId="@Model.ListId" asp-route-itemId="@Model.ItemId">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="ItemId" />
+    <h2>Are you sure?</h2>
+    <button type="submit" class="btn btn-primary">Yes</button>
+    <a asp-page="Items" asp-route-id="@Model.ListId" class="btn">No</a>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

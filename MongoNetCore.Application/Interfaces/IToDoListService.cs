@@ -10,6 +10,7 @@ namespace MongoNetCore.Application.Interfaces
         Task<ToDoList> CreateAsync(ToDoList toDoList);
         Task DeleteAsync(string id);
         Task<ToDoList> FindAsync(string id);
+        Task<ToDoList> FindByItemIdAsync(string id);
         Task<IList<ToDoList>> ReadAsync(Guid userId);
         Task UpdateAsync(ToDoList list);
     }

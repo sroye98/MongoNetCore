@@ -58,9 +58,10 @@ namespace MongoNetCore.Http2.Pages
                 ModelState.AddModelError(
                     nameof(Input.Identifier),
                     "Login Failed: Invalid Email or Password");
+                return Page();
             }
 
-            return Redirect("/Submissions/List");
+            return Redirect("/Lists/List");
         }
     }
 }
