@@ -28,6 +28,8 @@ namespace MongoNetCore.Http.Pages.Submissions
                 return Redirect("/Error");
             }
 
+            SubmissionId = submission.Id;
+
             return Page();
         }
 
