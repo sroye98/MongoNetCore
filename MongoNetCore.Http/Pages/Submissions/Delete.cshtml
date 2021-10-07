@@ -1,0 +1,20 @@
+﻿@page
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete your Idea";
+}
+
+<h1>Delete your Idea</h1>
+
+<form method="post" asp-route-id="@Model.SubmissionId">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="SubmissionId" />
+    <h2>Are you sure?</h2>
+    <button type="submit" class="btn btn-primary">Yes</button>
+    <a asp-page="List" class="btn">No</a>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

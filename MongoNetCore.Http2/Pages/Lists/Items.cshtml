@@ -1,12 +1,12 @@
 ﻿@page
 @model ItemsModel
 @{
-    ViewData["Title"] = "To Do List Items";
+    ViewData["Title"] = "To Do Lists";
 }
 
 <h1>@Model.ToDoList.ListName Items</h1>
 
-@foreach (var item in Model.ToDoItems)
+@foreach (var item in Model.ToDoList.Items)
 {
     <div class="idea">
         <span>Created By: @item.UserName on @item.Created.ToLocalTime()</span>
