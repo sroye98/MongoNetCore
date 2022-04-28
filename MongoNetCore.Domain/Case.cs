@@ -1,33 +1,42 @@
-﻿using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System.Collections.Generic;
+using MongoNetCore.Domain.Shared;
 
 namespace MongoNetCore.Domain
 {
-    public class Case
+    public class Case : AuditableEntity
     {
         public Case()
         {
         }
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string Title { get; set; }
 
-        public Guid UserId { get; set; }
-
-        public string UserName { get; set; }
-
-        public string SurgeryName { get; set; }
-
-        public string SurgeryNickname { get; set; }
-
-        public Clinic Clinic { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime LastUpdated { get; set; }
+        public string Nickname { get; set; }
 
         public string Notes { get; set; }
+
+        public string ClinicId { get; set; }
+
+        public string ClinicName { get; set; }
+
+        public string ClinicPhoneNumber { get; set; }
+
+        public string ClinicFaxNumber { get; set; }
+
+        public string SurgeonId { get; set; }
+
+        public string SurgeonName { get; set; }
+
+        public string SchedulerId { get; set; }
+
+        public string SchedulerName { get; set; }
+
+        public List<Attendee> Attendees { get; set; }
+
+        public List<Procedure> Procedures { get; set; } // Case Mappings
+
+        public List<Task> Tasks { get; set; }
+
+        public List<Test> Tests { get; set; }
     }
 }

@@ -1,18 +1,12 @@
-﻿using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoNetCore.Domain.Shared;
 
 namespace MongoNetCore.Domain
 {
-    public class Clinic
+    public class Clinic : BaseEntity
     {
         public Clinic()
         {
         }
-
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
 
         public string Name { get; set; }
 
@@ -31,9 +25,5 @@ namespace MongoNetCore.Domain
         public string PhoneNumber { get; set; }
 
         public string FaxNumber { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime LastUpdated { get; set; }
     }
 }
